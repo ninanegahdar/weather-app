@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet} from "react-native";
+import MapView, { Marker } from 'react-native-maps';
 
 import * as Location from "expo-location";
 
@@ -45,20 +46,43 @@ useEffect(() => {
 }, [location]);
 
 return (
-  <View style={styles.container}>
-    {weather ? (
-      <Text style={styles.text}>
-        🌍 {weather.name}{"\n"}
-        🌡️ {weather.main.temp} °C{"\n"}
-        ☁️ {weather.weather[0].description}
-      </Text>
-    ) : location ? (
-      <Text style={styles.text}>Loading weather...</Text>
-    ) : errorMsg ? (
-      <Text style={styles.text}>{errorMsg}</Text>
-    ) : (
-      <Text style={styles.text}>Loading location...</Text>
+  <View style={{ flex: 1 }}>
+    
+    {location && (
+      <MapView
+        style={{ flex: 1 }}
+        region={{
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+      >
+        <Marker
+          coordinate={{
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+          }}
+        />
+      </MapView>
     )}
+
+    <View style={styles.container}>
+      {weather ? (
+        <Text style={styles.text}>
+          🌍 {weather.name}{"\n"}
+          🌡️ {weather.main.temp} °C{"\n"}
+          ☁️ {weather.weather[0].description}
+        </Text>
+      ) : location ? (
+        <Text style={styles.text}>Loading weather...</Text>
+      ) : errorMsg ? (
+        <Text style={styles.text}>{errorMsg}</Text>
+      ) : (
+        <Text style={styles.text}>Loading location...</Text>
+      )}
+    </View>
+
   </View>
 );
 }
