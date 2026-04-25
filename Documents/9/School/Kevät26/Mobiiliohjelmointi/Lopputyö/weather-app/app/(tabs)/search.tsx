@@ -1,0 +1,75 @@
+import { useState } from "react";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+
+export default function Search() {
+    const API_KEY = "797d87539045726c3e9d6c13055395f3";
+
+    const [city, setCity] = useState("");
+    const [weather, setWeather] = useState<any>(null);
+    const [errorMsg, setErrorMsg] = useState("");
+
+
+async function fetchWeather() {
+    console.log("BUTTON PRESSED", city);
+    if (!city) return;
+
+    const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
+    );
+
+    const data = await response.json();
+    console.log("API RESPONSE:", data);
+
+    if (data.cod !== 200) {
+        setErrorMsg("City not found");
+        setWeather(null);
+        return;
+    }
+
+    setErrorMsg("");
+    setWeather(data);
+}
+
+return (
+    <View style={styles.container}>
+        <TextInput
+        style={styles.input}
+        placeholder="Search city..."
+        value={city}
+        onChangeText={setCity}
+        />
+
+        <Button title="Search" onPress={fetchWeather} />
+
+    {weather && (
+        <Text style={styles.text}>
+        🌍 {weather.name}{"\n"}
+        🌡️ {weather.main.temp} °C{"\n"}
+        ☁️ {weather.weather[0].description}
+        </Text>
+        )}
+    </View>
+    );
+    }
+
+const styles = StyleSheet.create({
+container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    },
+    text: {
+    fontSize: 18,
+    textAlign: 'center',
+    color: 'white',
+    },
+    input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 10,
+    width: "100%",
+    marginBottom: 10,
+    color: "white",
+    }
+});

@@ -42,6 +42,7 @@ useEffect(() => {
     setWeather(data);
   }
 
+
   fetchWeather();
 }, [location]);
 
