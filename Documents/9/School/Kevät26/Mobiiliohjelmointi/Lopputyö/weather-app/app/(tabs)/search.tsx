@@ -29,6 +29,14 @@ async function fetchWeather() {
     setErrorMsg("");
     setWeather(data);
 }
+    async function addToFavorites() {
+        console.log("ADD:", city);
+}
+
+    async function clearSearch() {
+    setCity("");
+    setWeather(null);
+}
 
 return (
     <View style={styles.container}>
@@ -40,6 +48,7 @@ return (
         />
 
         <Button title="Search" onPress={fetchWeather} />
+        <Button title="Clear" onPress={clearSearch} />
 
     {weather && (
         <Text style={styles.text}>
@@ -48,6 +57,7 @@ return (
         ☁️ {weather.weather[0].description}
         </Text>
         )}
+        <Button title="Add to favorites ⭐️" onPress={addToFavorites} />
     </View>
     );
     }
