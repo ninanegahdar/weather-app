@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import AsyncStorage  from '@react-native-async-storage/async-storage';
 
 export default function Search() {
     const API_KEY = "797d87539045726c3e9d6c13055395f3";
@@ -29,8 +30,13 @@ async function fetchWeather() {
     setErrorMsg("");
     setWeather(data);
 }
-    async function addToFavorites() {
-        console.log("ADD:", city);
+async function addToFavorites() {
+    const saved = await AsyncStorage.getItem("favorites");
+    const favorites = saved ? JSON.parse(saved) : [];
+
+    favorites.push(city);
+
+    await AsyncStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
     async function clearSearch() {

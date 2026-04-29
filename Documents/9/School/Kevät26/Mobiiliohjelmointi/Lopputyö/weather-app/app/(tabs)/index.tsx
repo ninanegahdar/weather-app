@@ -101,6 +101,3 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
-
-//https://docs.expo.dev/versions/latest/sdk/location/
