@@ -19,3 +19,5 @@ Päädyin käyttämään push()-metodia (spreadin sijaan), sillä se tuntui help
 
 Sovelluksessa on siis nyt toimiva hakunäkymä, jossa voi hakea säätietoja, tyhjentää haun sekä tallentaa suosikkikaupunkeja. Seuraavaksi tarkoituksena on luoda favorites - screen, jonne listataan tallennetut suosikkikaupungit.
 
+Day 5:
+Loin Favorites-näkymän, missä AsyncStorageen perustuva pysyvä tallennus, jonka avulla voidaan tallentaa kaupunkeja suosikkeihin.

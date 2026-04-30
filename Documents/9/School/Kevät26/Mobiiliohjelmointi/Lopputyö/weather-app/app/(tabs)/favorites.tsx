@@ -1,10 +1,13 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import AsyncStorage  from '@react-native-async-storage/async-storage';
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 
 export default function Favorites() {
     const [favorites, setFavorites] = useState<string[]>([]);
+    
+    const router = useRouter();
 
 async function getFavorites() {
     try {
@@ -21,19 +24,29 @@ async function getFavorites() {
     getFavorites();
     }, []);
 
-    return (
+return (
     <View style={styles.container}>
         <Text style={styles.title}> Favorites </Text>
     {favorites.length === 0 ? (
         <Text style={styles.text}>No favorites yet</Text>
     ) : (
-        favorites.map((city, index) => (
-        <Text key={index} style={styles.text}>
-            {city}
+    favorites.map((city, index) => (
+    <Pressable
+    key={index}
+    onPress={() =>
+        router.push({
+        pathname: "/city",
+        params: { city: city },
+            })
+        }
+    >
+    <Text style={styles.text}>
+        {city}
         </Text>
-        ))
-    )}
-</View>
+    </Pressable>
+            ))
+        )}
+    </View>
     )
 }
 
