@@ -45,7 +45,7 @@ async function addToFavorites() {
 
     }
 
-    async function clearSearch() {
+async function clearSearch() {
     setCity("");
     setWeather(null);
     }

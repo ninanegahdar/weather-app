@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 
 
 export default function Favorites() {
     const [favorites, setFavorites] = useState<string[]>([]);
+    const [errorMsg, setErrorMsg] = useState("");
     
     const router = useRouter();
 
@@ -23,6 +24,12 @@ async function getFavorites() {
     useEffect(() => {
     getFavorites();
     }, []);
+
+async function clearFavorites() {
+    await AsyncStorage.removeItem("favorites");
+    setFavorites([""]);
+    setErrorMsg("Favorites cleared")
+    }
 
     return (
     <View style={styles.container}>
@@ -46,6 +53,8 @@ async function getFavorites() {
     </Pressable>
             ))
         )}
+    <Button title="Clear" onPress={clearFavorites} />
+    <Text style={styles.text}>{errorMsg}</Text>
     </View>
     )
 }
