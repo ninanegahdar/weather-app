@@ -1,6 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import AsyncStorage  from '@react-native-async-storage/async-storage';
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Search() {
     const API_KEY = "797d87539045726c3e9d6c13055395f3";
@@ -29,20 +29,26 @@ async function fetchWeather() {
 
     setErrorMsg("");
     setWeather(data);
-}
+    }
+
 async function addToFavorites() {
     const saved = await AsyncStorage.getItem("favorites");
     const favorites = saved ? JSON.parse(saved) : [];
 
-    favorites.push(city);
+    if (favorites.includes(city)) {
+        setErrorMsg("City already added to Favorites");
+        return;
+    }
 
+    favorites.push(city);
     await AsyncStorage.setItem("favorites", JSON.stringify(favorites));
-}
+
+    }
 
     async function clearSearch() {
     setCity("");
     setWeather(null);
-}
+    }
 
 return (
     <View style={styles.container}>
@@ -64,15 +70,24 @@ return (
         </Text>
         )}
         <Button title="Add to favorites ⭐️" onPress={addToFavorites} />
+        {errorMsg ? (
+    <Text style={styles.errorText}>{errorMsg}</Text>
+    ) : null}
     </View>
     );
     }
 
 const styles = StyleSheet.create({
-container: {
+    container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 20,
+    },
+    title: {
+    fontSize: 30,
+    textAlign: 'center',
+    color: 'white',
     padding: 20,
     },
     text: {
@@ -87,5 +102,11 @@ container: {
     width: "100%",
     marginBottom: 10,
     color: "white",
-    }
+    },
+    errorText: {
+    color: "red",
+    marginTop: 6,
+    fontSize: 14,
+    fontWeight: "500",
+    },
 });

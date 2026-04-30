@@ -21,3 +21,13 @@ Sovelluksessa on siis nyt toimiva hakunäkymä, jossa voi hakea säätietoja, ty
 
 Day 5:
 Loin Favorites-näkymän, missä AsyncStorageen perustuva pysyvä tallennus, jonka avulla voidaan tallentaa kaupunkeja suosikkeihin.
+
+Day 6:
+Tein Favorites-näkymän kaupungeista klikattavia, joiden painaminen avaa uuden näkymän. Toteutin tätä varten erillisen city.tsx-näkymän, jonka rakensin Home-näkymän koodia ja logiikkaa hyödyntäen. Kartan ja sijainnin paikantamisen lisäksi erona on, että sijaintitietojen sijaan käytetään parametrina kaupungin nimeä.
+
+Aluksi ajattelin ohjaavani käyttäjän takaisin Home-tabiin niin, että oma sijainti muuttuisi klikattavaksi kaupungiksi, mutta päädyin sitten kokonaan erilliseen näkymään, sillä se tuntuu selkeämmältä ratkaisulta. Home on järkevämpi oman sijainnin säätä varten (kun sinne on laitettu myös paikantava kartta), ja sovelluksen rakenne tuntuu näin loogisemmalta.
+
+Day 7:
+Suosikkikaupunkia klikattaessa avautuu uusi näkymä (city.tsx screen) ja säätiedot näkyvät oikein, mutta takaisin painike näkyi käyttäjälle expo routerin headerin nimen mukaisesti <(tabs), niin yritin saada tämän korjattua. Sain lopulta nimen vaihdettua root layoutin stack.screenin avulla.
+
+Tajusin myös, että Suosikkikaupunkien listalla oli sama kaupunki kahdesti, eli funktio ei tarkistanut onko tallennettava kaupunki jo valmiiksi listassa. Korjasin tämän ja lisäsin samalla virheviestin, jos kaupunki on jo tallennettuna listaan. Lisäksi lisäsin Stylesheetiin oman kohdan virheviesteille, ja tein niistä punaset, sillä valkoinen teksti ei näyttänyt tarpeeksi errorilta.

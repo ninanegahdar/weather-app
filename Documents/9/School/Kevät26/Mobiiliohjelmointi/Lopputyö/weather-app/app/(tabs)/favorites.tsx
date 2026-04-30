@@ -24,7 +24,7 @@ async function getFavorites() {
     getFavorites();
     }, []);
 
-return (
+    return (
     <View style={styles.container}>
         <Text style={styles.title}> Favorites </Text>
     {favorites.length === 0 ? (
@@ -51,29 +51,35 @@ return (
 }
 
 const styles = StyleSheet.create({
-container: {
+    container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
     },
-title: {
+    title: {
     fontSize: 30,
     textAlign: 'center',
     color: 'white',
     padding: 20,
-},
-text: {
+    },
+    text: {
     fontSize: 18,
     textAlign: 'center',
     color: 'white',
     },
-input: {
+    input: {
     borderWidth: 1,
     borderColor: "#ccc",
     padding: 10,
     width: "100%",
     marginBottom: 10,
     color: "white",
-    }
+    },
+    errorText: {
+    color: "red",
+    marginTop: 6,
+    fontSize: 14,
+    fontWeight: "500",
+    },
 });
