@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Button, Card, Text, TextInput } from 'react-native-paper';
 
 export default function Search() {
     const API_KEY = "797d87539045726c3e9d6c13055395f3";
@@ -11,7 +12,6 @@ export default function Search() {
 
 
 async function fetchWeather() {
-    console.log("BUTTON PRESSED", city);
     if (!city) return;
 
     const response = await fetch(
@@ -19,7 +19,6 @@ async function fetchWeather() {
     );
 
     const data = await response.json();
-    console.log("API RESPONSE:", data);
 
     if (data.cod !== 200) {
         setErrorMsg("City not found");
@@ -45,68 +44,71 @@ async function addToFavorites() {
 
     }
 
-async function clearSearch() {
+function clearSearch() {
     setCity("");
     setWeather(null);
     }
 
 return (
     <View style={styles.container}>
-        <TextInput
-        style={styles.input}
-        placeholder="Search city..."
+    <TextInput
+        label="Search city"
         value={city}
         onChangeText={setCity}
+        mode="outlined"
+        style={styles.input}
         />
 
-        <Button title="Search" onPress={fetchWeather} />
-        <Button title="Clear" onPress={clearSearch} />
+    <Button mode="contained" onPress={fetchWeather} style={styles.button}>
+        Search
+    </Button>
+
+    <Button mode="outlined" onPress={clearSearch} style={styles.button}>
+        Clear
+    </Button>
 
     {weather && (
-        <Text style={styles.text}>
-        🌍 {weather.name}{"\n"}
-        🌡️ {weather.main.temp} °C{"\n"}
-        ☁️ {weather.weather[0].description}
-        </Text>
+        <Card style={styles.card}>
+        <Card.Content>
+            <Text variant="titleLarge">{weather.name}</Text>
+
+            <Text variant="displaySmall">
+            {Math.round(weather.main.temp)} °C
+            </Text>
+
+            <Text variant="bodyLarge">
+            {weather.weather[0].description}
+            </Text>
+        </Card.Content>
+
+        <Card.Actions>
+            <Button onPress={addToFavorites}>Add to favorites ⭐</Button>
+        </Card.Actions>
+        </Card>
         )}
-        <Button title="Add to favorites ⭐️" onPress={addToFavorites} />
-        {errorMsg ? (
-    <Text style={styles.errorText}>{errorMsg}</Text>
-    ) : null}
+        {errorMsg ? <Text style={styles.error}>{errorMsg}</Text> : null}
     </View>
     );
-    }
+}
 
 const styles = StyleSheet.create({
-    container: {
+container: {
     flex: 1,
+    padding: 20,
     justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
     },
-    title: {
-    fontSize: 30,
-    textAlign: 'center',
-    color: 'white',
-    padding: 20,
-    },
-    text: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: 'white',
-    },
-    input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    width: "100%",
+input: {
     marginBottom: 10,
-    color: "white",
     },
-    errorText: {
+button: {
+    marginTop: 10,
+    },
+card: {
+    marginTop: 20,
+    },
+error: {
+    marginTop: 10,
     color: "red",
-    marginTop: 6,
-    fontSize: 14,
-    fontWeight: "500",
+    textAlign: "center",
     },
 });
