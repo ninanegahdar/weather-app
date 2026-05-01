@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Button, Card, Text } from "react-native-paper";
 
 
 export default function Favorites() {
@@ -31,64 +32,63 @@ async function clearFavorites() {
     setErrorMsg("Favorites cleared")
     }
 
-    return (
+return (
     <View style={styles.container}>
-        <Text style={styles.title}> Favorites </Text>
+    <Text variant="headlineMedium" style={styles.title}>
+    Favorites
+    </Text>
+
     {favorites.length === 0 ? (
-        <Text style={styles.text}>No favorites yet</Text>
+    <Text style={styles.text}>No favorites yet ☹</Text>
     ) : (
     favorites.map((city, index) => (
-    <Pressable
-    key={index}
-    onPress={() =>
-        router.push({
-        pathname: "/city",
-        params: { city: city },
+    <Card
+        key={index}
+        style={styles.card}
+        onPress={() =>
+            router.push({
+            pathname: "/city",
+            params: { city: city },
             })
-        }
-    >
-    <Text style={styles.text}>
-        {city}
-        </Text>
-    </Pressable>
-            ))
-        )}
-    <Button title="Clear" onPress={clearFavorites} />
-    <Text style={styles.text}>{errorMsg}</Text>
+        }>
+        <Card.Content>
+            <Text variant="titleMedium">{city}</Text>
+        </Card.Content>
+    </Card>
+        ))
+    )}
+
+    <Button mode="outlined" onPress={clearFavorites} style={styles.button}>
+    Clear
+    </Button>
+
+    {errorMsg ? <Text style={styles.error}>{errorMsg}</Text> : null}
     </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
-    container: {
+container: {
     flex: 1,
+    padding: 20,
     justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
     },
-    title: {
-    fontSize: 30,
-    textAlign: 'center',
-    color: 'white',
-    padding: 20,
+text: {
+    textAlign: "center",
+},
+title: {
+    textAlign: "center",
+    marginBottom: 20,
     },
-    text: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: 'white',
-    },
-    input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    width: "100%",
+card: {
     marginBottom: 10,
-    color: "white",
     },
-    errorText: {
+button: {
+    marginTop: 20,
+    },
+error: {
+    marginTop: 10,
     color: "red",
-    marginTop: 6,
-    fontSize: 14,
-    fontWeight: "500",
+    textAlign: "center",
     },
 });

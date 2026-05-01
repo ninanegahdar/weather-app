@@ -81,7 +81,7 @@ return (
             </Text>
         </Card.Content>
 
-        <Card.Actions>
+        <Card.Actions style={{ justifyContent: "center"}}>
             <Button onPress={addToFavorites}>Add to favorites ⭐</Button>
         </Card.Actions>
         </Card>
