@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
+import { Card, Text } from "react-native-paper";
 
 import * as Location from "expo-location";
 
@@ -25,10 +26,10 @@ useEffect(() => {
     }
 
     getCurrentLocation();
-  }, []);
+    }, []);
 
   useEffect(() => {
-  if (!location) return;
+    if (!location) return;
 
   async function fetchWeather() {
     const lat = location!.coords.latitude;
@@ -43,7 +44,7 @@ useEffect(() => {
   }
 
   fetchWeather();
-}, [location]);
+  }, [location]);
 
 return (
   <View style={{ flex: 1 }}>
@@ -67,50 +68,41 @@ return (
       </MapView>
     )}
 
-    <View style={styles.container}>
+  <Card style={styles.card}>
+    <Card.Content>
       {weather ? (
-        <Text style={styles.text}>
-          🌍 {weather.name}{"\n"}
-          🌡️ {weather.main.temp} °C{"\n"}
-          ☁️ {weather.weather[0].description}
+      <>
+      <Text variant="titleLarge">{weather.name}</Text>
+        <Text variant="displaySmall">
+          {Math.round(weather.main.temp)} °C
+          </Text>
+        <Text variant="bodyLarge">
+        {weather.weather[0].description}
         </Text>
-      ) : location ? (
-        <Text style={styles.text}>Loading weather...</Text>
-      ) : errorMsg ? (
-        <Text style={styles.text}>{errorMsg}</Text>
+      </>
+        ) : location ? (
+      <Text>Loading weather...</Text>
+        ) : errorMsg ? (
+      <Text style={styles.error}>{errorMsg}</Text>
       ) : (
-        <Text style={styles.text}>Loading location...</Text>
-      )}
-    </View>
-
+        <Text>Loading location...</Text>
+        )}
+      </Card.Content>
+    </Card>
   </View>
-);
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    },
-    text: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: 'white',
-    },
-    input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
+card: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    right: 20,
     padding: 10,
-    width: "100%",
-    marginBottom: 10,
-    color: "white",
     },
-    errorText: {
+error: {
     color: "red",
-    marginTop: 6,
-    fontSize: 14,
-    fontWeight: "500",
+    textAlign: "center",
     },
 });

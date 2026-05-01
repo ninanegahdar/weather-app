@@ -17,16 +17,23 @@ export default function TabLayout() {
         headerShown: true,
         headerTitleStyle: {
           fontFamily: 'DancingScript_700Bold',
-          fontSize: 26,
+          fontSize: 24,
           color: '#f860ac',
           },
+        headerStyle: {
+          height: 100,
+        },
+        headerTitleContainerStyle: {
+          justifyContent: "flex-end",
+          paddingBottom: 6,
+        },
         tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="location.circle" color={color} />,
         }}
       />
       <Tabs.Screen
