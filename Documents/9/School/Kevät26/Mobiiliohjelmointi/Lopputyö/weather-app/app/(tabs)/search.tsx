@@ -10,6 +10,10 @@ export default function Search() {
     const [weather, setWeather] = useState<any>(null);
     const [errorMsg, setErrorMsg] = useState("");
 
+function capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 
 async function fetchWeather() {
     if (!city) return;
@@ -34,14 +38,15 @@ async function addToFavorites() {
     const saved = await AsyncStorage.getItem("favorites");
     const favorites = saved ? JSON.parse(saved) : [];
 
+    const formattedCity = capitalize(city.trim());
+
     if (favorites.includes(city)) {
         setErrorMsg("City already added to Favorites");
         return;
     }
 
-    favorites.push(city);
+    favorites.push(formattedCity);
     await AsyncStorage.setItem("favorites", JSON.stringify(favorites));
-
     }
 
 function clearSearch() {
