@@ -3,7 +3,12 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
+import { Provider as PaperProvider } from 'react-native-paper';
+
 import { useColorScheme } from '@/hooks/use-color-scheme';
+
+import { DancingScript_700Bold } from '@expo-google-fonts/dancing-script';
+import { useFonts } from 'expo-font';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -12,14 +17,20 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
+  const [loaded] = useFonts({
+    DancingScript_700Bold,
+  });
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <PaperProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ title: "Back", headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
         <Stack.Screen name="city" options={{ title: "Weather" }} />
       </Stack>
       <StatusBar style="auto" />
+      </PaperProvider>
     </ThemeProvider>
   );
 }

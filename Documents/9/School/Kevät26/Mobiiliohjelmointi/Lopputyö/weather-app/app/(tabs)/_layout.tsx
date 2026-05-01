@@ -13,7 +13,13 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
+        headerTitle: "Rayn",
+        headerShown: true,
+        headerTitleStyle: {
+          fontFamily: 'DancingScript_700Bold',
+          fontSize: 26,
+          color: '#f860ac',
+          },
         tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
