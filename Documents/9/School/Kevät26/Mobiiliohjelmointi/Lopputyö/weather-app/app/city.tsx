@@ -1,6 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Card, Text } from 'react-native-paper';
 
 export default function city () {
     const API_KEY = "797d87539045726c3e9d6c13055395f3";
@@ -32,46 +33,40 @@ useEffect(() => {
     }, [city]);
 
 return (
-    <View style={styles.container}>
+<View style={styles.container}>
     {weather ? (
-        <Text style={styles.text}>
-        🌍 {weather.name}{"\n"}
-        🌡️ {weather.main.temp} °C{"\n"}
-        ☁️ {weather.weather[0].description}
-        </Text>
-    ) : errorMsg ? (
-        <Text style={styles.text}>{errorMsg}</Text>
-    ) : (
-        <Text style={styles.text}>Loading weather...</Text>
+        <Card style={styles.card}>
+        <Card.Content>
+        <Text variant="titleLarge">{weather.name}</Text>
+            <Text variant="displaySmall">
+            {Math.round(weather.main.temp)} °C
+            </Text>
+        <Text variant="bodyLarge">
+            {weather.weather[0].description}
+            </Text>
+        </Card.Content>
+        </Card>
+        ) : errorMsg ? (
+        <Text style={styles.error}>{errorMsg}</Text>
+        ) : (
+        <Text>Loading weather...</Text>
     )}
     </View>
     );
 }
 
+
 const styles = StyleSheet.create({
 container: {
     flex: 1,
+    padding: 20,
     justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
     },
-title: {
-    fontSize: 30,
-    textAlign: 'center',
-    color: 'white',
-    padding: 20,
-},
-text: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: 'white',
-    },
-input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
+card: {
     padding: 10,
-    width: "100%",
-    marginBottom: 10,
-    color: "white",
-    }
+    },
+error: {
+    textAlign: "center",
+    color: "red",
+    },
 });
