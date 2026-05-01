@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
-
 
 export default function Favorites() {
     const [favorites, setFavorites] = useState<string[]>([]);
@@ -20,11 +20,14 @@ async function getFavorites() {
         }
     } catch (error) {
         console.log("Error loading favorites");
+        }
     }
-}
-    useEffect(() => {
-    getFavorites();
-    }, []);
+
+    useFocusEffect(
+    useCallback(() => {
+        getFavorites();
+    }, [])
+    );
 
 async function clearFavorites() {
     await AsyncStorage.removeItem("favorites");
