@@ -1,52 +1,66 @@
 Oppimispäiväkirja
 
-Day 1:
-Loin uuden github repon ja loin projektin. Suunnittelin alkuun seuraavat näkymät: 1. Home - sen hetkisen lokaation sää, 2. Haku ja 3. Suosikit. Otin selvää Expo Locationista ja yritin ymmärtää miten se toimii.
+Olen tehnyt kirjaukset sessioiden mukaan.
 
-Day2:
-Hain OpenWeather:sta oman API Keyn säätä varten ja yritin saada sen toimimaan oikein kotinäkymässä, kun käyttäjä antaa luvan sijaintiin.
+1:
+Loin uuden GitHub repon ja expo projektin. Suunnittelin sovellukselle alkuun seuraavat näkymät:
+1. Home - sen hetkisen lokaation sää
+2. Haku
+3. Suosikit
+ Otin selvää Expo Locationista ja yritin ymmärtää miten se toimii.
 
-Day 3: Katsoin 'Kartat ja sijainti' luennon videon ja päätin hyödyntää sitä, ja kurssimateriaalia, ja lisätä etusivulle myös karttanäkymän. Olen tähän asti käyttänyt expon web näkymää sovelluksen testaamiseen, niin tässä kohtaa tuli ongelma sillä, react-native-maps kirjasto ei ilmeisesti suostu näyttämään karttaa webissä. Aluksi yritin ratkaista tän käyttämällä Platformia, mutta lopulta päätin jättää sen pois ja keskittyä pelkästään nimenomaan mobiilisovellukseen
+2:
+Hain OpenWeatherista oman API Keyn säätä varten ja yritin saada sen toimimaan oikein kotinäkymässä. Aluksi yritin hakea säätiedot liian aikasin niin kutsu palautti tyhjää dataa. Lopulta sain ratkaistua, kun sain oikean rakenteen koodille: pyydä käyttäjältä lupa sijaintiin, hae koordinaatit ja sitten sääkysely.
 
-Loin uuden sivun eli erillisen hakunäkymän: Search.tsx. Hakunäkymässä käyttäjä voi syöttää kaupungin nimen ja hakea sen sään saman OpenWeather API:n avulla.
+3:
+Katsoin 'Kartat ja sijainti' luennon videota uudelleen ja päätin hyödyntää sitä ja kurssimateriaalia, ja lisätä sovelluksen etusivulle myös karttanäkymän.
 
+Olin tähän asti käyttänyt expon web-näkymää sovelluksen testaamiseen. Tässä kohtaa ilmeni ongelma, sillä react-native-mapsin kirjasto ei ilmeisesti ole yhteensopiva Expo web-ympäristön kanssa. Aluksi yritin ratkaista ongelman käyttämällä Platformia (jotta kartta näkyisi webissä ja mobiilissa), mutta lopulta päätin jättää sen pois. Päätin yksinkertaisesti keskittyä pelkästään mobiilisovellukseen.
 
-Day 4:
-Lisäsin “Clear” ja "Add to Favorites" funkiot ja napit hakunäkymään. Tutustuin AsyncStorageen ja päätin käyttää sitä Favorites näkymän toteuttamisessa. Suosikkikaupunkien tallennuksessa en ensin tajunnut, että myös aiemmin tallennettujen kaupunkien pitää säilyä listassa, ettei niiden päältä ylikirjoiteta tallennettaessa uutta.
+Lisäksi loin sovellukseen erillisen hakunäkymän: Search.tsx. Hakunäkymässä käyttäjä voi hakea syöttämänsä kaupungin säätiedot saman OpenWeather API:n avulla.
+
+4:
+Lisäsin “Clear” ja "Add to Favorites" funkiot ja napit hakunäkymään. Tutustuin AsyncStorageen ja päätin käyttää sitä Favorites-näkymän toteuttamisessa. Suosikkikaupunkien tallennuksessa en ensin tajunnut, että myös aiemmin tallennettujen kaupunkien pitää säilyä listassa, ettei niiden päältä ylikirjoiteta tallennettaessa uutta.
 
 Päädyin käyttämään push()-metodia (spreadin sijaan), sillä se tuntui helpommalta ymmärtää, kun tarkotuksena käsitellä tavallista taulukkoa Reactin staten sijaan.
 
-Sovelluksessa on siis nyt toimiva hakunäkymä, jossa voi hakea säätietoja, tyhjentää haun sekä tallentaa suosikkikaupunkeja. Seuraavaksi tarkoituksena on luoda favorites - screen, jonne listataan tallennetut suosikkikaupungit.
+Hakunäkymässä on nyt mahdollista hakea säätietoja, tyhjentää haun, sekä tallentaa suosikkikaupunkeja. Seuraavaksi tarkoituksena on luoda favorites-näkymä, jonne listataan tallennetut suosikkikaupungit.
 
-Day 5:
-Loin Favorites-näkymän, missä AsyncStorageen perustuva pysyvä tallennus, jonka avulla voidaan tallentaa kaupunkeja suosikkeihin.
+5:
+Loin Favorites-näkymän, missä käytössä AsyncStorageen perustuva tallennus, jonka avulla voidaan tallentaa kaupunkeja suosikkeihin.
 
-Day 6:
-Tein Favorites-näkymän kaupungeista klikattavia, joiden painaminen avaa uuden näkymän. Toteutin tätä varten erillisen city.tsx-näkymän, jonka rakensin Home-näkymän koodia ja logiikkaa hyödyntäen. Kartan ja sijainnin paikantamisen lisäksi erona on, että sijaintitietojen sijaan käytetään parametrina kaupungin nimeä.
+6:
+Tein Favorites-näkymän kaupungeista klikattavia, jotta niiden painaminen avaa uuden näkymän, josta löytyy säätiedot. Toteutin tätä varten city.tsx, jonka rakensin Home-näkymän koodia ja logiikkaa hyödyntäen. Kartan ja sijainnin paikantamisen poisjättämisen lisäksi erona on, että sijaintitietojen sijaan käytetään parametrina kaupungin nimeä.
 
-Aluksi ajattelin ohjaavani käyttäjän takaisin Home-tabiin niin, että oma sijainti muuttuisi klikattavaksi kaupungiksi, mutta päädyin sitten kokonaan erilliseen näkymään, sillä se tuntuu selkeämmältä ratkaisulta. Home on järkevämpi oman sijainnin säätä varten (kun sinne on laitettu myös paikantava kartta), ja sovelluksen rakenne tuntuu näin loogisemmalta.
+Olin aluksi suunnittellut ohjaavani käyttäjän takaisin Home-tabiin niin, että oma sijainti muuttuisi klikattavaksi kaupungiksi. Päädyin kuitenkin lopulta kokonaan erilliseen näkymään, sillä se tuntuu selkeämmältä ratkaisulta. Home on mielestäni järkevämpi oman (sen hetkisen) sijainnin säätä varten.
 
-Day 7:
-Suosikkikaupunkia klikattaessa avautuu uusi näkymä (city.tsx screen) ja säätiedot näkyvät oikein, mutta takaisin painike näkyi käyttäjälle expo routerin headerin nimen mukaisesti <(tabs), niin yritin saada tämän korjattua. Sain lopulta nimen vaihdettua root layoutin stack.screenin avulla.
+7:
+Suosikkikaupunkia klikattaessa avautuu uusi näkymä (city.tsx) ja säätiedot näkyvät oikein, mutta takaisin painike näkyi käyttäjälle expo routerin headerin nimen mukaisesti <(tabs), joten yritin saada tämän korjattua. Sain lopulta nimen vaihdettua root layoutin stack.screenin avulla.
 
-Tajusin myös, että Suosikkikaupunkien listalla oli sama kaupunki kahdesti, eli funktio ei tarkistanut onko tallennettava kaupunki jo valmiiksi listassa. Korjasin tämän ja lisäsin samalla virheviestin, jos kaupunki on jo tallennettuna listaan. Lisäksi lisäsin Stylesheetiin oman kohdan virheviesteille, ja tein niistä punaset, sillä valkoinen teksti ei näyttänyt tarpeeksi errorilta.
+Tajusin myös, että Suosikkikaupunkien listalla oli sama kaupunki kahdesti, eli funktio ei tarkistanut onko tallennettava kaupunki jo valmiiksi listassa. Korjasin tämän ja lisäsin samalla virheviestin, jos kaupunki on jo tallennettuna. Lisäksi lisäsin Stylesheetiin oman tyylin virheviesteille, ja vaihdoin niistä punaiset. Standardi valkoinen teksti ei näyttänyt tarpeeksi errorilta.
 
-Lisäsin suosikeille alkeellisen clear funktion ja napin, joka tyhjentää listan klikatessa. Tajusin jälkeenpäin, että se ei kuitenkaan tyhjennä AsyncStoragea, niin jouduin muokkaamaan sitä tyhjentämään sekä staten että AsyncS.
+Lisäsin suosikeille myös alkeellisen clear funktion ja napin, joka tyhjentää listan klikatessa. Tajusin jälkeenpäin, että se ei kuitenkaan tyhjennä AsyncStoragea, niin jouduin muokkaamaan sitä tyhjentämään sekä staten että AsyncStoragen.
 
 8:
-Sovelluksen logiikka toimi ja rakenne oli tässä vaiheessa aika lailla valmis, niin päätin keskittyä hetkeksi enemmän viimeistelyyn ja yksityiskohtiin.
+Sovelluksen logiikka toimi ja rakenne oli tässä vaiheessa aika lailla valmis, niin päätin keskittyä viimeistelyyn ja yksityiskohtiin.
 
-Otin käyttöön React Native Paper -kirjaston ja päivitin sillä kaikki näkymät, jotta sovelluksen yleisilme näyttää hienommalta ja modernimmalta. Lopuksi päätin vielä lsäsätä card-komponenttiin (joka esittelee säätiedot) emojin, jotta se ei näyttäisi liian tylsältä.
+Otin käyttöön React Native Paper -kirjaston ja päivitin sillä kaikki näkymät, jotta sovelluksen yleisilme näyttäisi hienommalta ja modernimmalta. Lopuksi päätin vielä lsäsätä card-komponenttiin (joka esittelee säätiedot) emojin, sillä se oli mielestäni hieman tylsännäköinen.
 
-Halusin myös tässä vaiheessa sovellukselle jonkinlaisen logon näkyviin, ja tajusin samalla, etten ollut miettinyt edes nimeä. Päätin siis nimetä sääsovelluksen "Rayn", ja laittaa tämän näkyviin headerin avulla.
+Halusin myös sovellukselle jonkinlaisen logon näkyviin, ja tajusin samalla, etten ollut miettinyt sille edes nimeä. Päätin siis nimetä sääsovelluksen "Rayn", ja tuoda tämän näkyviin headerin avulla.
 
-Löysin custom fontin, josta pidin, mutta sen kanssa tuli vastaan ongelmia, sillä se ei aluksi vaihtunut sovelluksessa ollenkaan. En ilmeisesti ollut ladannut expo-font -kirjastoa oikein aikasemmin, niin tehtyäni sen uudelleen sain fontin näkyviin.
+Löysin custom fontin, josta pidin, mutta sen kanssa tuli vastaan ongelmia, sillä se ei aluksi vaihtunut sovelluksessa ollenkaan. En ilmeisesti ollut ladannut expo-font -kirjastoa oikein aikasemmin, niin asennettuani sen uudelleen, sain fontin näkyviin.
 
-Itse headerin kanssa tuli myös ongelmia, sillä se leikkasi osan logosta pois näkyvistä. Ratkaisin tämän säätämällä korkeutta ja title-container asetuksia monia kertoja eri arvoilla, kunnes sain sen näkymään oikein. Kuulostaa yksinkertaselta, mutta tässä meni yllättävän kauan saada toimimaan.
+Itse headerin kanssa tuli myös ongelmia, osa logosta leikkautui jatkuvasti pois näkyvistä. Ratkaisin ongelman säätämällä korkeutta ja title-container asetuksia monia kertoja eri arvoilla, kunnes sain sen näkymään oikein. Kuulostaa yksinkertaselta, mutta tässä meni yllättävän kauan säädellä niin, että sain toimimaan.
 
-Huomasin myös, että suosikkilistan kaupungit tallentuivat pienillä alkukirjaimilla (kuten olin ne näppäillyt), mikä ei näyttänyt mielestäni tarpeeksi "viralliselta". Päätin luoda ja lisätä capitalize funktion, jotta kaupungit näkyisivät isolla alkukirjaimella listassa. Samalla tajusin, että lisättäessä kaupungin suosikkeihin, koko sovellus pitää reloadaa, jos haluaa lisätyn kaupungin näkyvän listassa. Lisäsin tämän vuoksi useFocusEffect-jookin, jotta lista päivittyy automaattisesti näkymää klikatessa.
+Huomasin myös, että suosikkilistan kaupungit tallentuivat pienillä alkukirjaimilla, samassa muodossa kuin olin ne näppäillyt, mikä ei näyttänyt mielestäni tarpeeksi "viralliselta". Päätin luoda ja lisätä capitalize-funktion, jotta kaupungit näkyisivät isolla alkukirjaimella listassa.
+
+ Samalla tajusin, että lisättäessä kaupungin suosikkeihin, e ei ilmestynyt listaan heti, vaan koko sovellus piti ensin reloadaa. Lisäsin tämän vuoksi useFocusEffect-hookin, jotta lista päivittyisi automaattisesti aina näkymää klikatessa.
 
 9:
+Tajusin, että tallennetuilla suosikeilla ei ollut poisto-ominaisuutta, vaan ainoastaan clear, joka tyhjentää koko listan. Sain idean Youtube videosta (https://www.youtube.com/watch?v=BRitzE50Dy0) toteuttaa iOS tyylinen "swipe to delete"-ominaisuus.
+Aluksi käytin vanhentunutta (deprecated) import mallia, mikä aiheutti ongelmia. Kun viimein sain itse funktion toimimaan, oikealla importilla, niin sovellus kaatui heti. Selvitin, että tää johtui siitä, että rootista puuttui "GestureHandlerRootView". Lisäsin sen sovelluksen Root Layoutiin, minkä jälkeen sain kaiken toimimaan.
+
+Halusin myös parantaa sovelluksen yhtenäisyyttä värien ja teeman suhteen. 9:
 Tajusin, että suosikeilla ei ollut poisto-ominaisuutta, ainoastaan "clear", joka tyhjentää koko listan. Sain idean Youtube videosta (https://www.youtube.com/watch?v=BRitzE50Dy0) toteuttaa iOS tyylinen "swipe to delete". Aluksi käytin vanhentunutta (deprecated) import mallia, mikä aiheutti ongelmia. Kun viimein sain itse funktion toimimaan, oikealla importilla, niin sovellus kaatui heti ja selvisi, että rootista puuttui "GestureHandlerRootView". Lisäsin sen root layoutiin, minkä jälkeen sain kaiken toimimaan.
 
-Halusin sovellukseen yhtenäisyyttä värien ja teeman suhteen. Päätin muokata pieniä yksityiskohtia (poistofunktion deletebox, search-button..) sopimaan Rayn-logon pinkkiin tyyliin.
+Halusin sovellukseen yhtenäisyyttä värien ja teeman suhteen. Muokkasin värejä, kuten delete-toiminnon taustaa ja hakunäkymän search-painikketta, jotta ne sopivat paremmin sovelluksen logon pinkkiin teemaan.
