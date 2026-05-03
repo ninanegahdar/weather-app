@@ -34,7 +34,6 @@ Tajusin myös, että Suosikkikaupunkien listalla oli sama kaupunki kahdesti, eli
 Lisäsin suosikeille alkeellisen clear funktion ja napin, joka tyhjentää listan klikatessa. Tajusin jälkeenpäin, että se ei kuitenkaan tyhjennä AsyncStoragea, niin jouduin muokkaamaan sitä tyhjentämään sekä staten että AsyncS.
 
 8:
-
 Sovelluksen logiikka toimi ja rakenne oli tässä vaiheessa aika lailla valmis, niin päätin keskittyä hetkeksi enemmän viimeistelyyn ja yksityiskohtiin.
 
 Otin käyttöön React Native Paper -kirjaston ja päivitin sillä kaikki näkymät, jotta sovelluksen yleisilme näyttää hienommalta ja modernimmalta. Lopuksi päätin vielä lsäsätä card-komponenttiin (joka esittelee säätiedot) emojin, jotta se ei näyttäisi liian tylsältä.
@@ -46,3 +45,6 @@ Löysin custom fontin, josta pidin, mutta sen kanssa tuli vastaan ongelmia, sill
 Itse headerin kanssa tuli myös ongelmia, sillä se leikkasi osan logosta pois näkyvistä. Ratkaisin tämän säätämällä korkeutta ja title-container asetuksia monia kertoja eri arvoilla, kunnes sain sen näkymään oikein. Kuulostaa yksinkertaselta, mutta tässä meni yllättävän kauan saada toimimaan.
 
 Huomasin myös, että suosikkilistan kaupungit tallentuivat pienillä alkukirjaimilla (kuten olin ne näppäillyt), mikä ei näyttänyt mielestäni tarpeeksi "viralliselta". Päätin luoda ja lisätä capitalize funktion, jotta kaupungit näkyisivät isolla alkukirjaimella listassa. Samalla tajusin, että lisättäessä kaupungin suosikkeihin, koko sovellus pitää reloadaa, jos haluaa lisätyn kaupungin näkyvän listassa. Lisäsin tämän vuoksi useFocusEffect-jookin, jotta lista päivittyy automaattisesti näkymää klikatessa.
+
+9:
+Tajusin, että suosikeilla ei ollut poisto-ominaisuutta, ainoastaan "clear", joka tyhjentää koko listan. Sain idean Youtube videosta (https://www.youtube.com/watch?v=BRitzE50Dy0) toteuttaa iOS tyylinen "swipe to delete". Aluksi käytin vanhentunutta (deprecated) import mallia, mikä aiheutti ongelmia. Kun viimein sain itse funktion toimimaan, oikealla importilla, niin sovellus kaatui heti ja selvisi, että rootista puuttui "GestureHandlerRootView". Lisäsin sen root layoutiin, minkä jälkeen sain kaiken toimimaan.

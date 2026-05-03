@@ -121,11 +121,11 @@ error: {
     textAlign: "center",
 },
 deleteBox: {
-    backgroundColor: "red",
+    backgroundColor: "#e41bcd",
     justifyContent: "center",
     alignItems: "center",
-    width: 80,
-    height: "100%",
+    width: 90,
+    height: "85%",
 },
 deleteText: {
     color: "white",
