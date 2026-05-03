@@ -3,12 +3,14 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
-import { Provider as PaperProvider } from 'react-native-paper';
-
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import { DancingScript_700Bold } from '@expo-google-fonts/dancing-script';
 import { useFonts } from 'expo-font';
+
+
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -22,6 +24,7 @@ export default function RootLayout() {
   });
 
   return (
+    <GestureHandlerRootView>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <PaperProvider>
       <Stack>
@@ -32,5 +35,6 @@ export default function RootLayout() {
       <StatusBar style="auto" />
       </PaperProvider>
     </ThemeProvider>
+  </GestureHandlerRootView>
   );
 }

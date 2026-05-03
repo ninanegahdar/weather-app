@@ -32,3 +32,17 @@ Suosikkikaupunkia klikattaessa avautuu uusi näkymä (city.tsx screen) ja säät
 Tajusin myös, että Suosikkikaupunkien listalla oli sama kaupunki kahdesti, eli funktio ei tarkistanut onko tallennettava kaupunki jo valmiiksi listassa. Korjasin tämän ja lisäsin samalla virheviestin, jos kaupunki on jo tallennettuna listaan. Lisäksi lisäsin Stylesheetiin oman kohdan virheviesteille, ja tein niistä punaset, sillä valkoinen teksti ei näyttänyt tarpeeksi errorilta.
 
 Lisäsin suosikeille alkeellisen clear funktion ja napin, joka tyhjentää listan klikatessa. Tajusin jälkeenpäin, että se ei kuitenkaan tyhjennä AsyncStoragea, niin jouduin muokkaamaan sitä tyhjentämään sekä staten että AsyncS.
+
+8:
+
+Sovelluksen logiikka toimi ja rakenne oli tässä vaiheessa aika lailla valmis, niin päätin keskittyä hetkeksi enemmän viimeistelyyn ja yksityiskohtiin.
+
+Otin käyttöön React Native Paper -kirjaston ja päivitin sillä kaikki näkymät, jotta sovelluksen yleisilme näyttää hienommalta ja modernimmalta. Lopuksi päätin vielä lsäsätä card-komponenttiin (joka esittelee säätiedot) emojin, jotta se ei näyttäisi liian tylsältä.
+
+Halusin myös tässä vaiheessa sovellukselle jonkinlaisen logon näkyviin, ja tajusin samalla, etten ollut miettinyt edes nimeä. Päätin siis nimetä sääsovelluksen "Rayn", ja laittaa tämän näkyviin headerin avulla.
+
+Löysin custom fontin, josta pidin, mutta sen kanssa tuli vastaan ongelmia, sillä se ei aluksi vaihtunut sovelluksessa ollenkaan. En ilmeisesti ollut ladannut expo-font -kirjastoa oikein aikasemmin, niin tehtyäni sen uudelleen sain fontin näkyviin.
+
+Itse headerin kanssa tuli myös ongelmia, sillä se leikkasi osan logosta pois näkyvistä. Ratkaisin tämän säätämällä korkeutta ja title-container asetuksia monia kertoja eri arvoilla, kunnes sain sen näkymään oikein. Kuulostaa yksinkertaselta, mutta tässä meni yllättävän kauan saada toimimaan.
+
+Huomasin myös, että suosikkilistan kaupungit tallentuivat pienillä alkukirjaimilla (kuten olin ne näppäillyt), mikä ei näyttänyt mielestäni tarpeeksi "viralliselta". Päätin luoda ja lisätä capitalize funktion, jotta kaupungit näkyisivät isolla alkukirjaimella listassa. Samalla tajusin, että lisättäessä kaupungin suosikkeihin, koko sovellus pitää reloadaa, jos haluaa lisätyn kaupungin näkyvän listassa. Lisäsin tämän vuoksi useFocusEffect-jookin, jotta lista päivittyy automaattisesti näkymää klikatessa.
