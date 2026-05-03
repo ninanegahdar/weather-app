@@ -57,14 +57,14 @@ function clearSearch() {
 return (
     <View style={styles.container}>
     <TextInput
-        label="Search city"
+        label="Search city..."
         value={city}
         onChangeText={setCity}
         mode="outlined"
         style={styles.input}
         />
 
-    <Button mode="contained" onPress={fetchWeather} style={styles.button}>
+    <Button mode="contained" onPress={fetchWeather} buttonColor="#fe7fbe" style={styles.button}>
         Search
     </Button>
 
