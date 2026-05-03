@@ -77,7 +77,7 @@ return (
           {Math.round(weather.main.temp)} °C
           </Text>
         <Text variant="bodyLarge">
-        {weather.weather[0].description}
+        ☁️ {weather.weather[0].description}
         </Text>
       </>
         ) : location ? (

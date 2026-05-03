@@ -82,7 +82,7 @@ return (
             </Text>
 
             <Text variant="bodyLarge">
-            {weather.weather[0].description}
+            ☁️ {weather.weather[0].description}
             </Text>
         </Card.Content>
 

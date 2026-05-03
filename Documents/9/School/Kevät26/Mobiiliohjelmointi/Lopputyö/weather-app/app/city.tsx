@@ -37,12 +37,14 @@ return (
     {weather ? (
         <Card style={styles.card}>
         <Card.Content>
-        <Text variant="titleLarge">{weather.name}</Text>
-            <Text variant="displaySmall">
+        <Text variant="titleLarge">
+            {weather.name}
+            </Text>
+        <Text variant="displaySmall">
             {Math.round(weather.main.temp)} °C
             </Text>
         <Text variant="bodyLarge">
-            {weather.weather[0].description}
+            ☁️ {weather.weather[0].description}
             </Text>
         </Card.Content>
         </Card>
