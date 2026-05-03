@@ -48,3 +48,5 @@ Huomasin myös, että suosikkilistan kaupungit tallentuivat pienillä alkukirjai
 
 9:
 Tajusin, että suosikeilla ei ollut poisto-ominaisuutta, ainoastaan "clear", joka tyhjentää koko listan. Sain idean Youtube videosta (https://www.youtube.com/watch?v=BRitzE50Dy0) toteuttaa iOS tyylinen "swipe to delete". Aluksi käytin vanhentunutta (deprecated) import mallia, mikä aiheutti ongelmia. Kun viimein sain itse funktion toimimaan, oikealla importilla, niin sovellus kaatui heti ja selvisi, että rootista puuttui "GestureHandlerRootView". Lisäsin sen root layoutiin, minkä jälkeen sain kaiken toimimaan.
+
+Halusin sovellukseen yhtenäisyyttä värien ja teeman suhteen. Päätin muokata pieniä yksityiskohtia (poistofunktion deletebox, search-button..) sopimaan Rayn-logon pinkkiin tyyliin.
